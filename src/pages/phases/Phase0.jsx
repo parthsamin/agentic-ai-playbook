@@ -1,5 +1,6 @@
 import { Callout, Table } from '../../components/UI';
 import { AgentSpectrum } from '../../components/Visuals';
+import Term from '../../components/Term';
 
 export default function Phase0() {
   return (
@@ -25,8 +26,9 @@ export default function Phase0() {
       </Callout>
 
       <Callout kind="tip" title="The definition that matters">
-        An <strong>agent</strong> is an LLM running in a loop, choosing which tools to call and when to stop,
-        against a goal. A <strong>workflow</strong> is LLMs and tools orchestrated through code paths you
+        An <Term k="agent"><strong>agent</strong></Term> is an <Term k="llm">LLM</Term> running in a loop,
+        choosing which <Term k="tools">tools</Term> to call and when to stop, against a goal. A{' '}
+        <Term k="workflow"><strong>workflow</strong></Term> is LLMs and tools orchestrated through code paths you
         defined. The difference is <strong>who controls the flow</strong> — the model or your code.
       </Callout>
 

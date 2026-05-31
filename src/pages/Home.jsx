@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { PHASES } from '../data/phases';
 import { useProgress } from '../hooks/useProgress';
+import SystemMap from '../components/SystemMap';
 
 export default function Home() {
   const { state, pct } = useProgress();
@@ -31,19 +32,61 @@ export default function Home() {
       <section className="stat-strip">
         <div className="stat card card-hover"><div className="big gradient-text">8</div><div className="lbl">phases, run on any problem</div></div>
         <div className="stat card card-hover"><div className="big gradient-text">5</div><div className="lbl">autonomy rungs to climb</div></div>
-        <div className="stat card card-hover"><div className="big gradient-text">3</div><div className="lbl">fillable workshop tools</div></div>
+        <div className="stat card card-hover"><div className="big gradient-text">5</div><div className="lbl">fillable workshop tools</div></div>
         <div className="stat card card-hover"><div className="big gradient-text">{pct}%</div><div className="lbl">your progress</div></div>
       </section>
 
-      {/* HOW TO USE */}
+      {/* HOW THIS GUIDE IS ORGANIZED */}
       <section style={{ margin: '40px 0' }}>
-        <div className="eyebrow">How to use this guide</div>
-        <h2 style={{ fontSize: 28, margin: '8px 0 12px' }}>The same eight phases, on any client problem or product idea</h2>
+        <div className="eyebrow">How this guide is organized</div>
+        <h2 style={{ fontSize: 28, margin: '8px 0 12px' }}>Four surfaces, one methodology</h2>
+        <p style={{ color: 'var(--ink-soft)', maxWidth: '72ch' }}>
+          This isn’t theory about AI — it’s a methodology a <strong>PM or consultant</strong> runs end-to-end.
+          Here’s how the pieces fit, and the path to take if you’re new.
+        </p>
+
+        <div className="grid grid-2" style={{ marginTop: 18 }}>
+          {[
+            { n: '1', t: 'The 8 Phases', d: 'Learn & design. Each phase teaches the mental models, gives you a 4-move recipe, and shows a worked example.', to: '/phase/orient', cta: 'Start at Phase 0', c: 'var(--p1)' },
+            { n: '2', t: 'Worked Cases', d: 'See it end-to-end. Two real cases played from a blank page to a finished Decision Dossier.', to: '/cases', cta: 'Play a case', c: 'var(--p2)' },
+            { n: '3', t: 'Workshop Tools', d: 'Do it for your own problem. Fillable canvas, decomposition, autonomy matrix, risk register & cost calculator — saved on your device.', to: '/tools', cta: 'Open the tools', c: 'var(--p3)' },
+            { n: '4', t: 'Reference', d: 'Go deeper or look things up: the Autonomy & Eval deep dive, the Pocket Toolkit, and a plain-language Glossary.', to: '/glossary', cta: 'Open the glossary', c: 'var(--p7)' },
+          ].map((s) => (
+            <div className="card card-hover" key={s.n} style={{ borderLeft: `4px solid ${s.c}`, display: 'flex', flexDirection: 'column' }}>
+              <h4 style={{ margin: 0, fontSize: 16, display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ width: 24, height: 24, borderRadius: 7, background: s.c, color: '#fff', display: 'grid', placeItems: 'center', fontSize: 13, fontFamily: 'var(--font-mono)' }}>{s.n}</span>
+                {s.t}
+              </h4>
+              <p style={{ color: 'var(--ink-soft)', fontSize: 13.5, margin: '8px 0 12px' }}>{s.d}</p>
+              <Link to={s.to} style={{ marginTop: 'auto', fontSize: 13.5, fontWeight: 600 }}>{s.cta} →</Link>
+            </div>
+          ))}
+        </div>
+
+        <div className="callout callout-tip" style={{ marginTop: 18 }}>
+          <span className="ic">🧭</span>
+          <div>
+            <h4>Recommended path</h4>
+            <p>New here? Read <strong>Phase 0</strong> to get the core instinct → skim Phases 1–8 in order → then{' '}
+            <Link to="/cases">play a case end-to-end</Link> to see it all connect → finally, open the{' '}
+            <Link to="/tools">tools</Link> and run your own problem through them.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SYSTEM MAP */}
+      <section style={{ margin: '40px 0' }}>
+        <div className="eyebrow">The whole picture</div>
+        <h2 style={{ fontSize: 28, margin: '8px 0 12px' }}>How it all connects</h2>
+        <SystemMap />
+      </section>
+
+      {/* THE TWO CASES */}
+      <section style={{ margin: '40px 0' }}>
+        <div className="eyebrow">Two running cases</div>
+        <h2 style={{ fontSize: 28, margin: '8px 0 12px' }}>Concrete throughout</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '70ch' }}>
-          This isn’t theory about AI. It’s a methodology a <strong>PM or consultant</strong> runs end-to-end, plus
-          the mental models and artifacts an expert uses inside each phase. Throughout, a <em>“For product managers
-          &amp; consultants”</em> note in each phase translates the idea into the deck, RAID log, PRD, or roadmap you
-          already own. Two running cases keep it concrete.
+          Every phase is illustrated on two deliberately different problems, so the abstract becomes concrete.
         </p>
 
         <div className="case-grid">

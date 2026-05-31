@@ -113,11 +113,41 @@ export const PATTERNS = {
 
 // Autonomy ladder rungs (Phase 6 / deep module)
 export const RUNGS = [
-  { n: 1, name: 'Shadow', hitl: '—', desc: 'Agent runs, output hidden, you compare to humans (eval only).', human: 'Does the job normally, unaffected.' },
-  { n: 2, name: 'Suggest', hitl: '~100%', desc: 'Agent drafts, human edits/approves everything (copilot).', human: 'Reviews/approves everything; is also the labeler.' },
-  { n: 3, name: 'Assist', hitl: '1 − auto%', desc: 'Agent auto-handles clear/easy cases, escalates the rest.', human: 'Handles only escalations.' },
-  { n: 4, name: 'Act-with-limits', hitl: 'spot-check %', desc: 'Agent acts within hard bounds, human spot-checks a sample.', human: 'Audits a sample after the fact.' },
-  { n: 5, name: 'Autopilot', hitl: '~0%', desc: 'Full autonomy on a bounded scope, monitored, with kill switch.', human: 'Watches dashboards.' },
+  {
+    n: 1, name: 'Shadow', hitl: '—',
+    runs: 'The agent processes live (or replayed) inputs; its output is hidden — never shown, never acted on.',
+    human: 'Does the job normally, unaffected.',
+    watch: 'Agreement rate with humans — and where & why it disagrees (the disagreements are gold).',
+    desc: 'Agent runs, output hidden, you compare to humans (eval only).',
+  },
+  {
+    n: 2, name: 'Suggest', hitl: '~100%',
+    runs: 'The agent drafts; a human reviews, edits, and approves 100% of outputs (copilot).',
+    human: 'The safety net and the labeler — every edit is a correction signal that grows your eval set.',
+    watch: 'Edit rate & edit distance trending down = trust building. This is your promotion signal off Rung 2.',
+    desc: 'Agent drafts, human edits/approves everything (copilot).',
+  },
+  {
+    n: 3, name: 'Assist', hitl: '1 − auto%',
+    runs: 'The agent auto-handles the clear/easy segment and escalates the rest — via confidence-based routing.',
+    human: 'Handles only the escalations.',
+    watch: 'Precision on the auto-handled segment; escalation rate; what’s leaking through that shouldn’t.',
+    desc: 'Agent auto-handles clear/easy cases, escalates the rest.',
+  },
+  {
+    n: 4, name: 'Act-with-limits', hitl: 'spot-check %',
+    runs: 'The agent takes real action within hard bounds (dollar caps, allow-lists). The big trust jump: pre-approval → post-hoc audit.',
+    human: 'Shifts from approving every action to spot-checking a sample after the fact.',
+    watch: 'Error rate found in audit; near-miss / cap-hit frequency; reversal / complaint rate.',
+    desc: 'Agent acts within hard bounds, human spot-checks a sample.',
+  },
+  {
+    n: 5, name: 'Autopilot', hitl: '~0%',
+    runs: 'Full autonomy on a defined, bounded scope — continuously monitored, with a kill switch. Reserved for reversible, low-blast-radius, well-evaluated scopes.',
+    human: 'Watches dashboards; any anomaly auto-demotes the rung.',
+    watch: 'The live outcome metric + drift signals; anomalies trigger automatic demotion.',
+    desc: 'Full autonomy on a bounded scope, monitored, with kill switch.',
+  },
 ];
 
 // Diagnostic kickoff questions (toolkit)

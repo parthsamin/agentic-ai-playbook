@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Callout, Table } from '../../components/UI';
 import { ClosedLoop } from '../../components/Visuals';
+import Term from '../../components/Term';
 
 export default function Phase7() {
   return (
@@ -13,8 +14,8 @@ export default function Phase7() {
 
       <h2 id="eval">Build the eval stack</h2>
       <ol>
-        <li><strong>Golden dataset</strong> — representative cases with known-good outputs (from your Phase-2 ground-truth audit). Your single most valuable asset; grow it continuously, especially with hard/edge cases.</li>
-        <li><strong>Metrics that match the job</strong> — task success, accuracy/faithfulness, quality (expert-acceptability, tone/brand), safety (guardrail-violation rate), operational (latency, cost-per-task, escalation rate).</li>
+        <li><Term k="golden-set"><strong>Golden dataset</strong></Term> — representative cases with known-good outputs (from your Phase-2 ground-truth audit). Your single most valuable asset; grow it continuously, especially with hard/edge cases.</li>
+        <li><strong>Metrics that match the job</strong> — task success, accuracy/<Term k="faithfulness">faithfulness</Term>, quality (expert-acceptability, tone/brand), safety (guardrail-violation rate), operational (latency, <Term k="cost-per-task">cost-per-task</Term>, escalation rate).</li>
         <li><strong>Methods</strong> — human review (gold standard, doesn’t scale) → LLM-as-judge (scaled, validated against humans) → automated checks (citation present, format valid, within policy).</li>
         <li><strong>Offline → online</strong> — test on the golden set pre-ship; then measure live (deflection, CSAT, override rate, A/B vs. human baseline). The Autonomy Ladder is gated on these numbers.</li>
       </ol>

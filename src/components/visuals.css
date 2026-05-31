@@ -31,8 +31,35 @@
   font-size: 12.5px; font-family: var(--font-mono);
 }
 
-/* ---- Autonomy 2x2 (Phase 3) ---- */
+/* ---- Autonomy 2x2 (Phase 3) — explicit, robust grid ---- */
 .quad-wrap { margin: 26px 0; }
+.quad2 { display: grid; grid-template-columns: 124px 1fr 1fr; gap: 8px; }
+.q-corner { }
+.q-colhead {
+  display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 600; text-align: center;
+}
+.q-rowhead {
+  display: flex; align-items: center; justify-content: flex-end; padding-right: 12px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 600; text-align: right;
+}
+.q-cell {
+  border-radius: 14px; padding: 18px; color: #fff; min-height: 100px;
+  display: flex; flex-direction: column; justify-content: center;
+  box-shadow: var(--shadow-sm); transition: transform .15s;
+}
+.q-cell:hover { transform: scale(1.02); }
+.q-cell .lab { font-family: var(--font-mono); font-size: 11px; opacity: .85; }
+.q-cell .val { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin-top: 5px; }
+.quad-cap { font-size: 12.5px; color: var(--ink-faint); margin: 12px 0 0; }
+@media (max-width: 680px) {
+  .quad2 { grid-template-columns: 1fr 1fr; }
+  .q-corner, .q-colhead, .q-rowhead { display: none; }
+}
+
+/* legacy quad (kept harmless) */
 .quad {
   display: grid; grid-template-columns: 120px 1fr 1fr; grid-template-rows: 40px 1fr 1fr;
   gap: 8px; align-items: stretch;
@@ -78,6 +105,39 @@
   color: var(--ink-faint);
 }
 .ladder-rung .hitl b { display: block; font-size: 17px; color: var(--ink); }
+
+/* ---- Autonomy ladder v2 (staircase) ---- */
+.ladder2 { margin: 24px 0; display: grid; grid-template-columns: 30px 1fr; gap: 8px; }
+.ladder2-axis { position: relative; }
+.ladder2-axis-top, .ladder2-axis-bot {
+  position: absolute; left: 0; writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-faint); white-space: nowrap;
+}
+.ladder2-axis-top { top: 0; }
+.ladder2-axis-bot { bottom: 0; color: var(--brand); font-weight: 600; }
+.ladder2-rungs { display: flex; flex-direction: column; gap: 10px; }
+.ladder2-rung {
+  border: 1px solid var(--line); border-left-width: 5px; border-radius: 12px;
+  padding: 13px 16px; background: var(--surface); box-shadow: var(--shadow-sm);
+  transition: transform .12s;
+}
+.ladder2-rung:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
+.lr-head { display: flex; align-items: center; gap: 10px; }
+.lr-num { width: 34px; height: 28px; border-radius: 8px; color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 13px; display: grid; place-items: center; flex: none; }
+.lr-name { font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+.lr-hitl { margin-left: auto; font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+.lr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px; }
+.lr-grid > div { font-size: 12.5px; color: var(--ink-soft); }
+.lr-k { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; margin-bottom: 3px; }
+.ladder2-cap { grid-column: 2; font-size: 13px; color: var(--ink-soft); margin: 6px 0 0; padding: 12px 14px; background: color-mix(in srgb, var(--brand) 6%, var(--surface)); border-radius: 10px; }
+.ladder2-cap strong { color: var(--ink); }
+@media (max-width: 760px) {
+  .ladder2 { grid-template-columns: 1fr; }
+  .ladder2-axis { display: none; }
+  .ladder2-rung { margin-left: 0 !important; }
+  .lr-grid { grid-template-columns: 1fr; gap: 8px; }
+}
 
 /* ---- Phase spine (home) ---- */
 .spine { display: flex; flex-direction: column; gap: 0; margin: 10px 0; }
@@ -164,6 +224,7 @@
 }
 .phase-head h1 { font-size: 42px; margin: 16px 0 8px; letter-spacing: -0.02em; }
 .phase-head .tagline { font-size: 19px; color: var(--ink-soft); max-width: 60ch; }
+.phase-lead { font-size: 16px; color: var(--ink-soft); max-width: 70ch; margin: 18px 0 6px; padding-left: 14px; border-left: 3px solid var(--line-strong); }
 
 /* Phase footer nav */
 .phase-foot { display: flex; justify-content: space-between; gap: 14px; margin-top: 56px; flex-wrap: wrap; }

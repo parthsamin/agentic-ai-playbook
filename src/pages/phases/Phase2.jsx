@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Callout, Table } from '../../components/UI';
+import { Callout } from '../../components/UI';
 
 export default function Phase2() {
   return (
@@ -32,35 +32,44 @@ export default function Phase2() {
         ))}
       </div>
 
-      <h2 id="decomp">The decomposition output (prior auth)</h2>
-      <Table
-        head={['Step', 'Today', 'Spectrum fit', 'Notes']}
-        rows={[
-          ['Receive request (fax/portal/EDI)', 'Intake clerk', 'L0 deterministic', 'OCR/parse in code'],
-          ['Extract clinical data', 'Nurse reads', 'L2 extraction', 'Unstructured → structured'],
-          ['Check if review even needed', 'Nurse', 'L1/L3 classify', 'Auto-approve clear cases'],
-          ['Match against medical policy', 'Nurse judgment', 'L4 agent', 'Open-ended reasoning + retrieval'],
-          ['Draft determination + citations', 'Nurse', 'L4 agent', 'The high-value step'],
-          ['Approve / sign', 'Physician', 'Human — never automated', 'Regulatory + liability'],
-          ['Notify provider/member', 'System', 'L0', 'Templated'],
-        ]}
-      />
-
-      <h2 id="decomp-retail">Retail CS decomposition</h2>
-      <Table
-        head={['Step', 'Spectrum fit']}
-        rows={[
-          ['Classify intent (WISMO / return / complaint)', 'L1/L3'],
-          ['Look up order, shipment, policy', 'L0 tools'],
-          ['Resolve simple WISMO', 'L3 workflow'],
-          ['Judgment case (out-of-policy, upset, VIP)', 'L4 agent within bounds'],
-          ['Issue refund > threshold', 'Human approval or hard cap'],
-        ]}
-      />
+      <h2 id="decomp">How to actually map a workflow</h2>
+      <p>Seven concrete moves take you from “we have a process” to a decision-ready decomposition:</p>
+      <ol className="howto">
+        <li>
+          <strong>Walk the real process, not the official one.</strong> Sit with the people doing the work and
+          trace one case end to end. Capture the shadow workarounds — that’s where the rework (and the truth) lives.
+        </li>
+        <li>
+          <strong>Break it into discrete steps.</strong> Job → Tasks → Steps, one row per step. Resist lumping;
+          a step you can’t classify is usually two steps.
+        </li>
+        <li>
+          <strong>Capture the seven attributes per step</strong> (inputs · decision/output · who does it today ·
+          time · error cost · data availability · reversibility). These are the facts every later phase needs.
+        </li>
+        <li>
+          <strong>Classify each step on the spectrum</strong> (L0–L5 / human). Be honest — most steps are L0–L3;
+          only genuinely ambiguous reasoning over language is L4+. If you’re tagging everything L4, you’re overusing agents.
+        </li>
+        <li>
+          <strong>Flag data-readiness and ground truth.</strong> For every input the agent needs: does it exist,
+          is it accessible, is it clean? And can you get labeled “correct” examples? <em>No data → no agent; no
+          ground truth → no eval.</em> This is where feasibility is really decided.
+        </li>
+        <li>
+          <strong>Read off the blend.</strong> Deterministic → code/RPA · predictions → ML · ambiguous judgment →
+          agent · consequential/regulated → human. The design win is the <em>split</em>, not “AI-ifying” the whole thing.
+        </li>
+        <li>
+          <strong>Hand the table forward.</strong> This one artifact feeds the architecture (Phase 3), the risk
+          register (Phase 4), and the business case (Phase 7) — so get it right once.
+        </li>
+      </ol>
 
       <Callout kind="tip" title="Do it for your own process">
-        Build your decomposition in the <Link to="/tools">Decomposition Table</Link> tool — add steps, tag each
-        with a spectrum level, and it auto-summarizes which steps are agent-suitable.
+        Run these moves in the <Link to="/tools">Decomposition Table</Link> tool — add your steps, tag each with a
+        spectrum level, and it auto-summarizes which stay code, which are agent-suitable, and which must stay human.
+        See both cases fully decomposed in the worked example below.
       </Callout>
 
       <Callout kind="map" title="For product managers & consultants">
@@ -78,7 +87,6 @@ export default function Phase2() {
 
 Phase2.toc = [
   { id: 'instruments', label: 'Discovery instruments' },
-  { id: 'decomp', label: 'Decomposition (PA)' },
-  { id: 'decomp-retail', label: 'Decomposition (retail)' },
+  { id: 'decomp', label: 'How to map' },
   { id: 'worked-example', label: 'Worked example' },
 ];

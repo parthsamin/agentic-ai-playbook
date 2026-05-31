@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Callout } from '../../components/UI';
 import { Autonomy2x2 } from '../../components/Visuals';
+import { FlowDiagram } from '../../components/CaseArtifacts';
 import { PATTERNS } from '../../data/phases';
+import { PRIOR_AUTH, RETAIL_CS } from '../../data/cases';
 
 function PatternCard({ p, accent }) {
   return (
@@ -69,21 +71,16 @@ export default function Phase3() {
       </Callout>
 
       <h2 id="ref-arch">Reference architectures</h2>
-      <h4>Prior auth (sketch)</h4>
-      <pre className="code">{`Intake (parse, L0) → Triage router (auto-approve clear cases)
-  → Agent: retrieve member history + medical policy (RAG) + tools,
-           reason against criteria, draft determination with citations
-  → Guardrails (PHI, policy adherence)
-  → HUMAN clinician approval
-  → System notifies`}</pre>
+      <p style={{ fontSize: 14, color: 'var(--ink-faint)' }}>
+        Two concrete designs — the same patterns above, composed for each case. Read left to right.
+      </p>
+
+      <h4>🏥 Prior auth</h4>
+      <FlowDiagram steps={PRIOR_AUTH.architecture} />
       <p style={{ fontSize: 14 }}><strong>Autonomy:</strong> read/draft = autonomous; <em>determine/sign = always human.</em> Irreversible + high blast radius.</p>
 
-      <h4>Retail CS (sketch)</h4>
-      <pre className="code">{`Intent router
-  → [WISMO: workflow look-up + reply]
-    or [Judgment: tool-using agent with order/policy/inventory tools]
-  → action layer with hard limits (auto-refund ≤ $X and within policy; else human)
-  → guardrails (tone, no PII leakage, no promises outside policy)`}</pre>
+      <h4>🛍️ Retail CS</h4>
+      <FlowDiagram steps={RETAIL_CS.architecture} />
       <p style={{ fontSize: 14 }}><strong>Autonomy:</strong> refunds under a threshold = autonomous (reversible-ish, low blast radius); above threshold or out-of-policy = human.</p>
 
       <Callout kind="map" title="For product managers & consultants">

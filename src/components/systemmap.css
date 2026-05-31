@@ -1,0 +1,38 @@
+.sysmap { margin: 20px 0; }
+.sm-band { border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; background: var(--surface); }
+.sm-band-soft { background: var(--surface-2); }
+.sm-band-engine { background: linear-gradient(135deg, #1a1830, #2a1a4d); border-color: transparent; box-shadow: var(--shadow-md); }
+.sm-band-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 600; margin-bottom: 14px;
+}
+.sm-phases, .sm-artifacts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.sm-phase-wrap { display: flex; align-items: center; gap: 8px; }
+.sm-phase {
+  display: flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 10px;
+  color: #fff; text-decoration: none; font-weight: 600; font-size: 13px; box-shadow: var(--shadow-sm);
+  transition: transform .12s;
+}
+.sm-phase:hover { transform: translateY(-2px); text-decoration: none; }
+.sm-phase .n { font-family: var(--font-mono); opacity: .8; font-size: 11px; }
+.sm-arrow { color: var(--ink-faint); font-size: 15px; }
+.sm-down { text-align: center; color: var(--ink-faint); font-size: 12.5px; margin: 10px 0; font-family: var(--font-mono); }
+
+.sm-art {
+  font-size: 12px; padding: 6px 11px; border-radius: 999px; background: var(--surface);
+  border: 1px solid var(--line); color: var(--ink-soft); font-family: var(--font-mono);
+}
+.sm-art-final { background: var(--grad-brand); color: #fff; border-color: transparent; font-weight: 700; }
+
+.sm-loop { display: flex; flex-wrap: wrap; gap: 10px; }
+.sm-loop-step {
+  flex: 1; min-width: 150px; position: relative; background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.16); border-radius: 12px; padding: 14px;
+}
+.sm-loop-step .sl-t { color: #fff; font-weight: 700; font-size: 13.5px; font-family: var(--font-display); }
+.sm-loop-step .sl-s { color: rgba(255,255,255,.75); font-size: 12px; margin-top: 3px; }
+.sm-loop-arrow { position: absolute; right: -13px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,.6); font-size: 16px; z-index: 2; }
+@media (max-width: 760px) {
+  .sm-loop-step { min-width: 100%; }
+  .sm-loop-arrow { right: 50%; top: auto; bottom: -16px; transform: translateX(50%) rotate(90deg); }
+}

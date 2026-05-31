@@ -48,6 +48,43 @@ export function FilledCanvas({ c }) {
   );
 }
 
+// ---- Spectrum verdict (Phase 0) ----
+export function SpectrumVerdict({ c }) {
+  const rows = c.decomposition;
+  const agent = rows.filter((r) => r.level === 'L4' || r.level === 'L5').length;
+  const human = rows.filter((r) => r.level === 'H').length;
+  const other = rows.length - agent - human;
+  return (
+    <>
+      <div className="tbl-wrap">
+        <table className="tbl">
+          <thead><tr><th>Step</th><th>Verdict</th><th>Why</th></tr></thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i}>
+                <td>{r.step}</td>
+                <td><span className="lvl-pill" style={{ background: LVL_COLOR[r.level] }}>{LVL_LABEL[r.level]}</span></td>
+                <td style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{r.why}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="decomp-summary" style={{ marginTop: 14 }}>
+        <div className="box" style={{ background: 'linear-gradient(135deg,#19c37d,#0f9d8a)' }}>
+          <div className="big">{other}</div><div className="lbl">stay code / ML / workflow</div>
+        </div>
+        <div className="box" style={{ background: 'linear-gradient(135deg,#ff7a45,#ff5470)' }}>
+          <div className="big">{agent}</div><div className="lbl">genuinely agent-suitable (L4–L5)</div>
+        </div>
+        <div className="box" style={{ background: 'linear-gradient(135deg,#8b5cf6,#6d4bff)' }}>
+          <div className="big">{human}</div><div className="lbl">must stay human</div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 // ---- Filled decomposition ----
 export function FilledDecomposition({ c }) {
   return (
@@ -215,6 +252,7 @@ export function ScaleCard({ c }) {
 // ---- Dispatcher: render the artifact for a given phase ----
 export function Artifact({ type, c }) {
   switch (type) {
+    case 'verdict': return <SpectrumVerdict c={c} />;
     case 'canvas': return <FilledCanvas c={c} />;
     case 'decomp': return <FilledDecomposition c={c} />;
     case 'arch': return <><FlowDiagram steps={c.architecture} /><ReadOnlyMatrix c={c} /></>;

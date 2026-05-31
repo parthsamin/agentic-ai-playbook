@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getCase, computeEconomics } from '../data/cases';
 import { PHASES } from '../data/phases';
 import { Artifact } from '../components/CaseArtifacts';
+import { QAList, StageMeta } from '../components/PhaseExtras';
 import '../components/caseviz.css';
 
 export default function Playthrough() {
@@ -26,6 +27,14 @@ export default function Playthrough() {
         <p className="sub">{c.tagline} This walkthrough teaches {c.teaches}.</p>
       </div>
 
+      {/* Baseline recap travels with you */}
+      <div className="pt-baseline">
+        <span className="pt-baseline-label">Baseline today</span>
+        {c.setup.baseline.map((b, i) => (
+          <span className="pt-baseline-item" key={i}>{b.label}: <b>{b.value}</b></span>
+        ))}
+      </div>
+
       {/* Stepper */}
       <div className="stepper">
         {PHASES.map((p) => (
@@ -47,41 +56,47 @@ export default function Playthrough() {
           <div className="stage-head">
             <div className="stage-num" style={{ background: phase.accent }}>{phase.id}</div>
             <div>
-              <div className="verb" style={{ color: phase.accent }}>{phase.verb}</div>
+              <div className="verb" style={{ color: phase.accent }}>{phase.verb} · STEP {stage + 1} OF 9</div>
               <h3>{phase.title}</h3>
             </div>
           </div>
 
-          <div className="stage-block">
-            <div className="bh" style={{ color: phase.accent }}>① Questions you ask</div>
-            <ul className="qa-list">
-              {step.questions.map((q, i) => <li key={i}>{q}</li>)}
-            </ul>
+          {/* The situation */}
+          <div className="pt-situation">
+            <span className="pt-sit-label">The situation</span>
+            <p>{step.situation}</p>
           </div>
 
-          {step.artifact && (
-            <div className="stage-block">
-              <div className="bh" style={{ color: phase.accent }}>② What you fill in → {step.produces}</div>
-              <Artifact type={step.artifact} c={c} />
-            </div>
-          )}
-          {!step.artifact && (
-            <div className="stage-block">
-              <div className="bh" style={{ color: phase.accent }}>② What you produce</div>
-              <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: 14 }}>{step.produces}.</p>
-            </div>
-          )}
+          {/* Questions, answered */}
+          <div className="stage-block">
+            <div className="bh" style={{ color: phase.accent }}>① The questions you ask — answered for this case</div>
+            <QAList qa={step.qa} accent={phase.accent} />
+          </div>
 
+          {/* What you produce — the artifact */}
+          <div className="stage-block">
+            <div className="bh" style={{ color: phase.accent }}>② What you produce → {step.produces}</div>
+            {step.artifact ? <Artifact type={step.artifact} c={c} /> : <p style={{ margin: 0, color: 'var(--ink-soft)' }}>{step.produces}.</p>}
+            {step.artifactNote && (
+              <p className="pt-note"><span>👁</span> {step.artifactNote}</p>
+            )}
+          </div>
+
+          {/* Decision + why */}
           <div className="decision-box">
             <span className="ic">✅</span>
             <div>
-              <div className="dl">③ The decision this yields</div>
+              <div className="dl">③ The decision — and why it follows</div>
               <div className="dv">{step.decision}</div>
+              <div className="pt-why"><strong>Why:</strong> {step.why}</div>
             </div>
           </div>
 
-          {stage < 8 && (
-            <p className="unlock-note">→ Feeds the next step: <strong style={{ color: 'var(--ink-soft)' }}>{PHASES[stage + 1].title}</strong></p>
+          {/* Handoff + takeaway */}
+          <StageMeta handoff={step.handoff} takeaway={step.takeaway} nextLabel={stage < 8 ? PHASES[stage + 1].title : null} />
+
+          {step.artifact && step.artifact !== 'arch' && step.artifact !== 'strategy' && step.artifact !== 'roadmap' && step.artifact !== 'scale' && (
+            <p className="unlock-note">🧰 Now you try: build your own in the <Link to="/tools">workshop tools</Link>.</p>
           )}
 
           <div className="phase-foot">

@@ -9,6 +9,7 @@ import DeepAutonomyEval from './pages/DeepAutonomyEval';
 import PhaseRouter from './pages/PhaseRouter';
 import Cases from './pages/Cases';
 import Playthrough from './pages/Playthrough';
+import Glossary from './pages/Glossary';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/deep/autonomy-eval" element={<DeepAutonomyEval />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/toolkit" element={<Toolkit />} />
+          <Route path="/glossary" element={<Glossary />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </div>

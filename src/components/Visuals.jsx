@@ -38,41 +38,63 @@ export function AgentSpectrum() {
   );
 }
 
-// ---- Autonomy 2x2 ----
+// ---- Autonomy 2x2 (reversibility × blast radius) ----
 export function Autonomy2x2() {
   return (
     <div className="quad-wrap">
-      <div className="quad">
-        <div className="axis-y"><span style={{ transform: 'rotate(-90deg)', whiteSpace: 'nowrap' }}>← Reversible · Irreversible →</span></div>
-        <div className="head"><span>Low impact</span></div>
-        <div className="head"><span>High impact</span></div>
+      <div className="quad2">
+        <div className="q-corner" />
+        <div className="q-colhead">Low blast radius</div>
+        <div className="q-colhead">High blast radius</div>
 
-        <div className="cell cell-green"><span className="lab">Reversible · Low</span><span className="val">Full autonomy</span></div>
-        <div className="cell cell-amber"><span className="lab">Reversible · High</span><span className="val">Autonomy + log/monitor</span></div>
+        <div className="q-rowhead">Reversible</div>
+        <div className="q-cell cell-green"><span className="lab">Reversible · Low</span><span className="val">Full autonomy</span></div>
+        <div className="q-cell cell-amber"><span className="lab">Reversible · High</span><span className="val">Autonomy + log / monitor</span></div>
 
-        <div className="cell cell-orange"><span className="lab">Irreversible · Low</span><span className="val">Autonomy with cap/confirm</span></div>
-        <div className="cell cell-red"><span className="lab">Irreversible · High</span><span className="val">Human approval required</span></div>
+        <div className="q-rowhead">Irreversible</div>
+        <div className="q-cell cell-orange"><span className="lab">Irreversible · Low</span><span className="val">Autonomy with cap / confirm</span></div>
+        <div className="q-cell cell-red"><span className="lab">Irreversible · High</span><span className="val">Human approval required</span></div>
       </div>
-      <div className="quad-x"><div /><div className="axis-x"><span>Blast radius →</span></div></div>
+      <p className="quad-cap">Columns = blast radius (how far damage spreads) · Rows = reversibility (can it be undone?). Set this per action.</p>
     </div>
   );
 }
 
-// ---- Autonomy ladder ----
+// ---- Autonomy ladder (climbing staircase, detailed) ----
 const RUNG_COLORS = ['#8b5cf6', '#4b62ff', '#0fc9b5', '#f5a623', '#19c37d'];
 export function AutonomyLadder() {
+  // Render top (R5) → bottom (R1) so it reads as a staircase you climb.
+  const climbing = [...RUNGS].reverse();
   return (
-    <div className="ladder">
-      {RUNGS.map((r, i) => (
-        <div className="ladder-rung" key={r.n}>
-          <div className="rn" style={{ background: RUNG_COLORS[i] }}>{r.n}</div>
-          <div>
-            <div className="ladder-name">{r.name}</div>
-            <div className="ladder-desc">{r.desc}</div>
-          </div>
-          <div className="hitl"><b>{r.hitl}</b>HITL</div>
-        </div>
-      ))}
+    <div className="ladder2">
+      <div className="ladder2-axis">
+        <span className="ladder2-axis-top">▲ more autonomy · less human time</span>
+        <span className="ladder2-axis-bot">start here ▾</span>
+      </div>
+      <div className="ladder2-rungs">
+        {climbing.map((r, i) => {
+          const color = RUNG_COLORS[r.n - 1];
+          const indent = (r.n - 1) * 26; // higher rungs step further right
+          return (
+            <div className="ladder2-rung" key={r.n} style={{ marginLeft: indent, borderColor: color }}>
+              <div className="lr-head">
+                <span className="lr-num" style={{ background: color }}>R{r.n}</span>
+                <span className="lr-name">{r.name}</span>
+                <span className="lr-hitl" style={{ color }}>HITL {r.hitl}</span>
+              </div>
+              <div className="lr-grid">
+                <div><span className="lr-k">What runs</span>{r.runs}</div>
+                <div><span className="lr-k">The human</span>{r.human}</div>
+                <div><span className="lr-k">Watch</span>{r.watch}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <p className="ladder2-cap">
+        ↑ You climb a rung <strong>only</strong> when a pre-agreed eval metric clears its bar — and an anomaly can
+        auto-demote you back down. Promote the easy segment first; keep the hard one a rung lower.
+      </p>
     </div>
   );
 }

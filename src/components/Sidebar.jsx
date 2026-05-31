@@ -61,6 +61,10 @@ export default function Sidebar({ open, onClose }) {
           style={{ '--accent': 'var(--amber)' }}>
           <span className="nav-num">★</span> Pocket Toolkit
         </NavLink>
+        <NavLink to="/glossary" className="nav-item" onClick={onClose}
+          style={{ '--accent': 'var(--p8)' }}>
+          <span className="nav-num">📖</span> Glossary
+        </NavLink>
 
         <div className="side-credit">
           Built by <a href="https://www.linkedin.com/in/aminparth" target="_blank" rel="noopener noreferrer">Parth Amin</a>

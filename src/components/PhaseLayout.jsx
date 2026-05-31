@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PHASES } from '../data/phases';
+import { RUNBOOK } from '../data/runbook';
 import { useProgress } from '../hooks/useProgress';
 import { PlayCard, WorkedExample } from './PhaseExtras';
 
@@ -20,9 +21,14 @@ export default function PhaseLayout({ phase, toc, children }) {
   return (
     <div className="page prose">
       <div className="phase-head fade-up">
-        <span className="badge" style={{ background: phase.accent }}>
-          PHASE {phase.id} · {phase.verb}
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          <span className="badge" style={{ background: phase.accent }}>
+            PHASE {phase.id} · {phase.verb}
+          </span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-faint)' }}>
+            Phase {phase.id + 1} of {PHASES.length}
+          </span>
+        </div>
         <h1>{phase.title}</h1>
         <p className="tagline">{phase.tagline}</p>
       </div>
@@ -33,13 +39,16 @@ export default function PhaseLayout({ phase, toc, children }) {
         </div>
       )}
 
+      <p className="phase-lead fade-up-2">{phase.summary}</p>
+
       <PlayCard slug={phase.slug} accent={phase.accent} />
 
       <div className="fade-up-3">{children}</div>
 
       <h2 id="worked-example">See it worked — both cases</h2>
       <p style={{ marginTop: 0 }}>
-        The same step, played concretely on each case. Switch tabs to compare, or open a full playthrough.
+        Here’s exactly what <strong>{RUNBOOK[phase.slug]?.produces.replace(/\.$/, '') || 'this phase'}</strong> looks
+        like on each case. Switch tabs to compare, or open a full playthrough.
       </p>
       <WorkedExample phaseId={phase.id} accent={phase.accent} />
 

@@ -1,5 +1,6 @@
 import { Callout, Table } from '../components/UI';
 import { AutonomyLadder, ClosedLoop } from '../components/Visuals';
+import Term from '../components/Term';
 
 export default function DeepAutonomyEval() {
   const scrollTo = (e, id) => {
@@ -130,9 +131,9 @@ export default function DeepAutonomyEval() {
       <h3>Offline → online → continuous</h3>
       <p>
         Offline golden set as <strong>gating CI</strong> (every prompt/model/tool change re-runs it and blocks
-        regressions; each production incident adds a permanent regression test) → <strong>shadow</strong> (Rung 1)
+        regressions; each production incident adds a permanent regression test) → <Term k="shadow"><strong>shadow</strong></Term> (Rung 1)
         → <strong>online A/B</strong> vs. human baseline → <strong>continuous</strong> monitoring with sampled
-        human audit (Rung-4 spot-checks <em>are</em> online eval). Watch for <strong>drift</strong>: input
+        human audit (Rung-4 spot-checks <em>are</em> online eval). Watch for <Term k="drift"><strong>drift</strong></Term>: input
         distribution shifts trigger re-evaluation and can auto-demote a rung.
       </p>
 
