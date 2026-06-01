@@ -36,6 +36,10 @@ export default function Sidebar({ open, onClose }) {
           style={{ '--accent': 'var(--p2)' }}>
           <span className="nav-num">▶</span> Worked Cases
         </NavLink>
+        <NavLink to="/lab" className="nav-item" onClick={onClose}
+          style={{ '--accent': 'var(--p5)' }}>
+          <span className="nav-num">🎯</span> Case Lab
+        </NavLink>
 
         <div className="nav-label">The 8 Phases</div>
         {PHASES.map((p) => (

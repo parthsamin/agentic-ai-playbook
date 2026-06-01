@@ -52,6 +52,15 @@ export default function PhaseLayout({ phase, toc, children }) {
       </p>
       <WorkedExample phaseId={phase.id} accent={phase.accent} />
 
+      <div className="phase-drill-cta">
+        <span style={{ fontSize: 22 }}>🎯</span>
+        <div className="pdc-t">
+          <strong>Pressure-test this phase</strong>
+          <p>A short, mixed-format drill in the Case Lab — with a debrief on every answer.</p>
+        </div>
+        <Link to={`/lab/drill/${phase.slug}`} className="btn btn-sm btn-ghost">Take the {phase.title} drill →</Link>
+      </div>
+
       <div className={`complete-bar ${done ? 'done' : ''}`}>
         <span style={{ fontSize: 22 }}>{done ? '✅' : '◻️'}</span>
         <div style={{ flex: 1 }}>

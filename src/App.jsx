@@ -10,6 +10,8 @@ import PhaseRouter from './pages/PhaseRouter';
 import Cases from './pages/Cases';
 import Playthrough from './pages/Playthrough';
 import Glossary from './pages/Glossary';
+import CaseLab from './pages/CaseLab';
+import QuizRunner from './pages/QuizRunner';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -40,6 +42,9 @@ export default function App() {
           <Route path="/tools" element={<Tools />} />
           <Route path="/toolkit" element={<Toolkit />} />
           <Route path="/glossary" element={<Glossary />} />
+          <Route path="/lab" element={<CaseLab />} />
+          <Route path="/lab/drill/:key" element={<QuizRunner mode="drill" />} />
+          <Route path="/lab/case/:key" element={<QuizRunner mode="case" />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
