@@ -32,7 +32,7 @@ export default function Home() {
       <section className="stat-strip">
         <div className="stat card card-hover"><div className="big gradient-text">8</div><div className="lbl">phases, run on any problem</div></div>
         <div className="stat card card-hover"><div className="big gradient-text">5</div><div className="lbl">autonomy rungs to climb</div></div>
-        <div className="stat card card-hover"><div className="big gradient-text">5</div><div className="lbl">fillable workshop tools</div></div>
+        <div className="stat card card-hover"><div className="big gradient-text">6</div><div className="lbl">fillable workshop tools</div></div>
         <div className="stat card card-hover"><div className="big gradient-text">{pct}%</div><div className="lbl">your progress</div></div>
       </section>
 

@@ -6,6 +6,7 @@ import DecompositionTable from '../components/tools/DecompositionTable';
 import AutonomyMatrix from '../components/tools/AutonomyMatrix';
 import RiskRegister from '../components/tools/RiskRegister';
 import CostCalculator from '../components/tools/CostCalculator';
+import RunBook from '../components/tools/RunBook';
 
 const TABS = [
   { id: 'canvas', icon: '🗂️', label: 'Opportunity Canvas', phaseLabel: 'Phase 1 · Frame', slug: 'frame', feeds: 'Feeds your decomposition (Phase 2).', C: OpportunityCanvas },
@@ -13,12 +14,14 @@ const TABS = [
   { id: 'matrix', icon: '🎛️', label: 'Autonomy Matrix', phaseLabel: 'Phase 3 · Architect', slug: 'architect', feeds: 'Feeds the risk register (Phase 4) and the roadmap (Phase 6).', C: AutonomyMatrix },
   { id: 'risk', icon: '🛡️', label: 'Risk Register', phaseLabel: 'Phase 4 · De-risk', slug: 'de-risk', feeds: 'Gates each autonomy promotion on the roadmap (Phase 6).', C: RiskRegister },
   { id: 'cost', icon: '🧮', label: 'Cost Calculator', phaseLabel: 'Phase 7 · Prove', slug: 'prove', feeds: 'Becomes the business case in your Decision Dossier.', C: CostCalculator },
+  { id: 'runbook', icon: '📓', label: 'Agent Run Book', phaseLabel: 'Run layer · Operate', path: '/operate', feeds: 'The on-call doc ops uses to run the agent every day.', C: RunBook },
 ];
 
 export default function Tools() {
   const [active, setActive] = useState('canvas');
   const tab = TABS.find((t) => t.id === active);
   const Active = tab.C;
+  const phasePath = tab.path || `/phase/${tab.slug}`;
 
   return (
     <div className="page">
@@ -43,7 +46,7 @@ export default function Tools() {
 
       <div className="tool-phasebar">
         <span className="tag">{tab.phaseLabel}</span>
-        <Link to={`/phase/${tab.slug}`} className="tool-phaselink">Open this phase →</Link>
+        <Link to={phasePath} className="tool-phaselink">Open this section →</Link>
         <span className="tool-feeds">↳ {tab.feeds}</span>
       </div>
 
@@ -52,7 +55,7 @@ export default function Tools() {
       </div>
 
       <div className="phase-foot" style={{ marginTop: 30 }}>
-        <Link to={`/phase/${tab.slug}`}>
+        <Link to={phasePath}>
           <div className="dir">← Learn the method</div>
           <div className="ttl">{tab.phaseLabel}</div>
         </Link>

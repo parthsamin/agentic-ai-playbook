@@ -57,6 +57,10 @@ export default function Sidebar({ open, onClose }) {
           style={{ '--accent': 'var(--p7)' }}>
           <span className="nav-num">▲</span> Autonomy & Eval
         </NavLink>
+        <NavLink to="/operate" className="nav-item" onClick={onClose}
+          style={{ '--accent': 'var(--p8)' }}>
+          <span className="nav-num">⚙</span> Operate (Day 2)
+        </NavLink>
         <NavLink to="/tools" className="nav-item" onClick={onClose}
           style={{ '--accent': 'var(--teal)' }}>
           <span className="nav-num">⚒</span> Workshop Tools

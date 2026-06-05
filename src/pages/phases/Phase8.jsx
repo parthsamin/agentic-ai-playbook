@@ -1,4 +1,5 @@
-import { Callout, Table } from '../../components/UI';
+import { Link } from 'react-router-dom';
+import { Callout } from '../../components/UI';
 
 export default function Phase8() {
   return (
@@ -47,6 +48,10 @@ export default function Phase8() {
       <Callout kind="map" title="For product managers & consultants">
         Operating-model design, the org-and-change workstream, the run/BAU transition, the capability-build
         recommendation — the highest-margin, stickiest consulting work.
+      </Callout>
+      <Callout kind="tip" title="Then comes Day 2">
+        Standing it up is one thing; <strong>running it</strong> is another. The day-to-day blockers, the health
+        dashboard, and the incident playbook live in <Link to="/operate">Operate the agent</Link> — the run layer.
       </Callout>
       <Callout kind="trap" title="Traps">
         “Throw it over the wall” with no run model · no continuous eval (silent drift) · ignoring the workforce

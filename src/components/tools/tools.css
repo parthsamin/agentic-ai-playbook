@@ -98,3 +98,9 @@
 .tool-intro { color: var(--ink-soft); max-width: 70ch; }
 .tool-prov { font-size: 12px; color: var(--ink-faint); margin: 6px 0 0; max-width: 72ch; }
 .tool-prov a { color: var(--ink-soft); }
+
+/* Run Book sections */
+.rb-section { margin: 22px 0; padding-top: 18px; border-top: 1px solid var(--line); }
+.rb-section:first-of-type { border-top: none; padding-top: 0; }
+.rb-section > h4 { font-size: 15px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+.rb-section > h4::before { content: ''; width: 4px; height: 16px; border-radius: 2px; background: var(--grad-brand); }
